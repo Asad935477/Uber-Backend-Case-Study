@@ -26,5 +26,6 @@ router.post(
   ],
   userController.loginUser
 );
+router.get("/profile", userController.getUserProfile, "private");
 
 module.exports = router;
