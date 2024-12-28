@@ -16,5 +16,16 @@ router.post(
   ],
   userController.registerUser
 );
+router.post(
+  "/login",
+  [
+    body("email").isEmail().withMessage("Invalid Email"),
+    body("password")
+      .isLength({ min: 6 })
+      .withMessage("Password Must be atleast 6 character long..."),
+  ],
+  userController.loginUser
+);
+router.get("/profile", userController.getUserProfile, "private");
 
 module.exports = router;
