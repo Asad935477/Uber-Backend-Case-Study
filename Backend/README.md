@@ -1,4 +1,4 @@
-# User Registration Endpoint Documentation
+# Documentation
 
 ## Endpoint: `/users/register`
 
@@ -31,58 +31,50 @@ Example:
 }
 ```
 
-### Responses:
+### Example Response
 
-#### Success:
+- `user`(object):
 
-- **Status Code: 201**
-- **Body:**
-  ```json
-  {
-    "token": "JWT_TOKEN_HERE",
-    "user": {
-      "_id": "USER_ID_HERE",
-      "fullname": {
-        "firstname": "John",
-        "lastname": "Doe"
-      },
-      "email": "john.doe@example.com"
-    }
-  }
-  ```
+  - `fullname`(object):
+    - `firstname` (string, required, minimum length: 3)
+    - `lastname` (string, optional, minimum length: 3)
+  - `email` (string, required, must be a valid email)
+  - `password` (string, required, minimum length: 6)
 
-#### Validation Errors:
+- `token`(string): JWT token
 
-- **Status Code: 400**
-- **Body:**
-  ```json
-  {
-    "errors": [
-      {
-        "msg": "Invalid Email",
-        "param": "email",
-        "location": "body"
-      },
-      {
-        "msg": "First Name must be atleast 3 characters long...",
-        "param": "fullname.firstname",
-        "location": "body"
-      },
-      {
-        "msg": "Password Must be atleast 6 character long...",
-        "param": "password",
-        "location": "body"
-      }
-    ]
-  }
-  ```
+## Endpoint: `/users/login`
 
-#### Other Errors:
+### Method: `POST`
 
-- **Status Code: 500**
-- **Body:**
-  ```json
-  {
-    "message": "Internal Server Error"
-  }
-  ```
+### Description:
+
+This endpoint is used to log in an existing user.
+
+### Request Body:
+
+The request body should be a JSON object containing the following fields:
+
+- `email` (string, required, must be a valid email)
+- `password` (string, required, minimum length: 6)
+
+Example:
+
+```json
+{
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+```
+
+### Example Response
+
+- `user`(object):
+
+  - `fullname`(object):
+    - `firstname` (string, required, minimum length: 3)
+    - `lastname` (string, optional, minimum length: 3)
+  - `email` (string, required, must be a valid email)
+  - `password` (string, required, minimum length: 6)
+
+- `token`(string): JWT token
